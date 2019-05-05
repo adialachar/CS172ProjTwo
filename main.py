@@ -18,10 +18,6 @@ import requests
 import sys
 from django.utils.encoding import smart_str
 credentials = {}
-credentials['CONSUMER_KEY'] = 'vJsGsCMmiZapsIoEpYVahW76L'
-credentials['CONSUMER_SECRET'] = 'SVHB6pHLVZPOoppBYywcsXlRkxDGBzdLufDwoingipDoEH66lX'
-credentials['ACCESS_TOKEN'] = '3051117252-VLcksCEUJgk6kSRPjvkPqbZbT1jQC62cJHowgKq'
-credentials['ACCESS_SECRET'] = '48VbkQrhuieXAVwQObdvVuIBGDT5rCYCKjuh7FhCdVbqC'
 #Content-Type: text/html; charset=utf-8
 
 
