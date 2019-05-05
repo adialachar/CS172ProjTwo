@@ -1,23 +1,21 @@
 import json
-import unicodedata
 import tweepy
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
-import csv
 import os
 import re
 from lxml.html import parse
 from http.client import BadStatusLine
 import urllib
 from urllib.request import urlopen
-from lxml import etree
-from io import StringIO
-from bs4 import BeautifulSoup
 import requests
 import sys
-from django.utils.encoding import smart_str
 credentials = {}
+credentials['CONSUMER_KEY'] = 'vJsGsCMmiZapsIoEpYVahW76L'
+credentials['CONSUMER_SECRET'] = 'SVHB6pHLVZPOoppBYywcsXlRkxDGBzdLufDwoingipDoEH66lX'
+credentials['ACCESS_TOKEN'] = '3051117252-VLcksCEUJgk6kSRPjvkPqbZbT1jQC62cJHowgKq'
+credentials['ACCESS_SECRET'] = '48VbkQrhuieXAVwQObdvVuIBGDT5rCYCKjuh7FhCdVbqC'
 #Content-Type: text/html; charset=utf-8
 
 
@@ -73,6 +71,7 @@ class listener(StreamListener):
 
 
         except urllib.error.HTTPError:
+            print("There has been an error")
             return True
 
     def on_error(self,status_code):
