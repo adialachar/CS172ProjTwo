@@ -6,6 +6,10 @@ from pprint import pprint
 
 from elasticsearch import Elasticsearch
 
+import ast
+
+
+
 es = Elasticsearch(
   ['localhost'],
   port=9200 
@@ -15,7 +19,7 @@ es = Elasticsearch(
 res = requests.get('https://localhost:9200')
 
 FILE = open("file.json",'r').read()
-
+'''
 ClearData = FILE.splitlines(True)
 
 i = 0
@@ -38,4 +42,26 @@ for line in ClearData:
 res = es.get(index='tweets', doc_type='tweet', id=0)
 
 print (res['_source'])
-    
+''' 
+def jsonToDicts(STR):
+        
+    STRI = list(STR)
+    for i in range(0,len(STRI)):
+        if STRI[i] == "\"":
+            STRI[i] = "\'"
+
+    STRIN = ''.join(STRI)
+    STRING = ast.literal_eval(STRIN)
+
+    return STRING
+
+
+
+
+
+
+
+
+
+
+
