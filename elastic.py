@@ -36,7 +36,7 @@ for line in newData:
 		else:
 			docs[i] = json_string + "}"
 			json_string = ""
-			es.index(index = 'twp', doc_type = 'tweet', id = i, body = docs[i])
+			es.index(index = 'tweets', doc_type = 'tweet', id = i, body = docs[i])
 			i+=1
 			res = es.get(index='tweets', doc_type='tweet', id=0)
 			print (res['_source'])
