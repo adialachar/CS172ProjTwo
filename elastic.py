@@ -38,4 +38,5 @@ for line in newData:
 			json_string = ""
 			es.index(index = 'twp', doc_type = 'tweet', id = i, body = docs[i])
 			i+=1
-print(i)
+			res = es.get(index='tweets', doc_type='tweet', id=0)
+			print (res['_source'])
