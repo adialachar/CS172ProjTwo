@@ -46,14 +46,39 @@ for line in newData:
 
 
 
+def find_average_tweet_length():
 
+	avg_length = 0
+	for i in range (0,100):
+		
+		res = es.get(index='tweets', doc_type = 'tweet',id = i)
+		
+		bag = remove_u(res['_source']['tweet'])
+		avg_length += len(bag)
+		
+		return ((float(avg_length)/100)
+		
 
-@app.route("/", methods['GET', 'POST'])
+				
+				
+				
+def find_number_of_docs(term):
+	n = 0			
+	for i in range(0,100):
+		res = es.get(index = 'tweet', doc_type = 'tweet', id = i)
+		if (len(re.findall(term, res['_source']['tweet'])) > 0):
+				n += 1
+				
+	return n
+				
+	
+
+#@app.route("/", methods['GET', 'POST'])
 def main():
 
 
-
-
+	tweets_and_scores = []
+		
 	if request.method == 'POST':
 
 
@@ -61,10 +86,29 @@ def main():
 
 		terms = query.split()
 
-
-
-
-
+		AVG = find_average_tweet_length()
+		
+		n = 0	
+		for i in range(0,100):
+		
+				
+			res = es.get(index = 'tweets', doc_type = 'tweet', id = i)	
+			K = (1.2 * (0.25))
+			K += (0.75) * ((len(res['_source']['tweet']))/AVG)
+			 	
+				
+				
+				
+			
+			score = 0
+			for j in range(0, len(terms)):
+				
+				f = re.findall(terms[i], res['_source']['tweet'])
+				n = find_number_of_docs(terms[i])
+				score += BM25(n,K,len(f))
+			
+			t = (res['_source'], score)
+			tweets_and_source.append(t)
 
 
 
@@ -82,7 +126,8 @@ def main():
 
 
 
-
+#if __name__ == "__main__":
+#	main()
 
 
 
