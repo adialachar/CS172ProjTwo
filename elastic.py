@@ -31,7 +31,7 @@ i = 0
 json_string = ""
 
 docs = {}
-
+locations = []
 for line in newData:
 	line = ''.join(line.split())
 	for word in line:
@@ -173,12 +173,13 @@ def main():
 
 			if type(sorted_tweets[i] == tuple):
 				just_tweets.append(sorted_tweets[i][0]['tweet'])
+				locations.append(sorted_tweets[i][0]['Location'])
 			#elif type(sorted_tweets[i] == dict):
 			#	just_tweets.append(sorted_tweets[i]['tweet'])
 
 
 
-			
+		print(locations)		
 		return render_template('index.html', just_tweets = just_tweets)		
 
 
@@ -190,6 +191,12 @@ def main():
 
 
 
+@app.route("/map",methods=['GET','POST'])
+def map():
+
+
+
+	return render_template('maps.html')
 
 
 

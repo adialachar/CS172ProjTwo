@@ -49,12 +49,23 @@ class listener(StreamListener):
                 
                 #print(status.entities['urls'][0]['expanded_url'])
                 link = status.entities['urls'][0]['expanded_url']
-         
-            dict = {'screen_name': status.user.screen_name, 'tweet': status.text, 'Location': status.user.location, 'Link': link, 'Date': (status.created_at).strftime('%m/%d/%Y'),'Time': (status.created_at).strftime('%H:%M:%S')}
         
+            dict = {'screen_name': status.user.screen_name, 'tweet': status.text, 'Location': status.user.location, 'Link': link, 'Date': (status.created_at).strftime('%m/%d/%Y'),'Time': (status.created_at).strftime('%H:%M:%S') } 
+	
 
-        
 
+
+
+
+
+
+
+
+            #if("coordinates" in status and status["coordinates"] != "null"):
+            #    print(status["coordinates"])
+            print(status.coordinates)
+            print(status.geo)
+            #exit()
 
             if self.num_tweets < 100:
 
@@ -69,7 +80,7 @@ class listener(StreamListener):
                 return False
 
 
-
+	
 
         except urllib.error.HTTPError:
             print("There has been an error")
