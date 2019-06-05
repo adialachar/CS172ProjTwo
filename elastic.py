@@ -53,7 +53,7 @@ for line in newData:
 def find_average_tweet_length():
 
 	avg_length = 0
-	for i in range (0,42):
+	for i in range (0,69):
 		
 		res = es.get(index='tweets', doc_type = 'tweet',id = i)
 		
@@ -70,7 +70,7 @@ def find_number_of_docs(term):
 
 
 	n = 0			
-	for i in range(0,42):
+	for i in range(0,69):
 		res = es.get(index = 'tweets', doc_type = 'tweet', id = i)
 		if (len(re.findall(term, res['_source']['tweet'])) > 0):
 				n += 1
@@ -95,7 +95,7 @@ def main():
 		AVG = find_average_tweet_length()
 		
 		n = 0	
-		for i in range(0,42):
+		for i in range(0,69):
 		
 				
 			res = es.get(index = 'tweets', doc_type = 'tweet', id = i)
@@ -113,7 +113,8 @@ def main():
 				
 				f = re.findall(terms[j], res['_source']['tweet'])
 				n = find_number_of_docs(terms[j])
-				score += functions.BM25(n,K,len(f))
+				if (len(f) is not 0):
+					score += functions.BM25(n,K,len(f))
 			
 			t = (res['_source'], score)
 			#print(t)
