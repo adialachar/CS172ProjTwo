@@ -1,6 +1,7 @@
 import re
 import functions
-
+from flask import Flask, render_template, request
+app = Flask(__name__)
 #test to make sure Elastic search is up and running
 import requests
 res = requests.get('http://localhost:9200')
@@ -84,11 +85,11 @@ def main():
 
 	tweets_and_scores = []
 		
-	if 2 == 2:	# if request.method == 'POST'
+	if request.method == 'POST'
 
 
-		#query = request.form.get('query',-1)
-		query = "girlfriend offered"
+		query = request.form.get('query',-1)
+		#query = "girlfriend offered"
 		terms = query.split()
 
 		AVG = find_average_tweet_length()
@@ -98,13 +99,13 @@ def main():
 		
 				
 			res = es.get(index = 'tweets', doc_type = 'tweet', id = i)
-			print(res['_source'])
-			print(res['_source']['tweet'])	
+			#print(res['_source'])
+			#print(res['_source']['tweet'])	
 			K = (1.2 * (0.25))
 			K += (0.75) * ((len(res['_source']['tweet']))/AVG)
 			 	
 				
-			print(K)	
+			#print(K)	
 				
 						
 			score = 0
@@ -120,7 +121,7 @@ def main():
 
 			
 
-	return 0 	#return render_template('index.html')
+	return render_template('index.html')
 
 
 
