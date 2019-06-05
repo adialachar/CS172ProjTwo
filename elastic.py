@@ -33,6 +33,8 @@ for line in newData:
 	for word in line:
 		if word != "}":
 			json_string += word
+			#json_string += "_"
+			#print(type(json_string))
 		else:
 			docs[i] = json_string + "}"
 			json_string = ""
@@ -40,3 +42,47 @@ for line in newData:
 			i+=1
 			res = es.get(index='tweets', doc_type='tweet', id=0)
 			print (res['_source'])
+			print(type(res['_source']))
+
+
+
+
+
+@app.route("/", methods['GET', 'POST'])
+def main():
+
+
+
+
+	if request.method == 'POST':
+
+
+		query = request.form.get('query',-1)
+
+		terms = query.split()
+
+
+
+
+
+
+
+
+	return render_template('index.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
