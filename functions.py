@@ -8,14 +8,14 @@ def BM25(n,K,f):
 	value = value/n
 	score = math.log(value,10)
 	
-	score *= ((2.2) * f)/(K + f))
+	score *= ((2.2) * f)/(K + f)
 	
 	score *= (float(101)/100)
 	
 	return score
 	
 
-
+'''
 def find_average_tweet_length():
 
 	avg_length = 0
@@ -45,7 +45,7 @@ def remove_u(s):
 			temp = ""
 	
 	
-	
+'''	
 	
 	
 	

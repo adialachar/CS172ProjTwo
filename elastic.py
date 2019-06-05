@@ -1,3 +1,6 @@
+import re
+import functions
+
 #test to make sure Elastic search is up and running
 import requests
 res = requests.get('http://localhost:9200')
@@ -40,32 +43,34 @@ for line in newData:
 			json_string = ""
 			es.index(index = 'tweets', doc_type = 'tweet', id = i, body = docs[i])
 			i+=1
-			res = es.get(index='tweets', doc_type='tweet', id=0)
-			print (res['_source'])
-			print(type(res['_source']))
+			#res = es.get(index='tweets', doc_type='tweet', id=0)
+			#print (res['_source'])
+			#print(type(res['_source']))
 
 
 
 def find_average_tweet_length():
 
 	avg_length = 0
-	for i in range (0,100):
+	for i in range (0,42):
 		
 		res = es.get(index='tweets', doc_type = 'tweet',id = i)
 		
-		bag = remove_u(res['_source']['tweet'])
+		bag = res['_source']['tweet']
 		avg_length += len(bag)
 		
-		return ((float(avg_length)/100)
+	return ((float(avg_length)/100))
 		
 
 				
 				
 				
 def find_number_of_docs(term):
+
+
 	n = 0			
-	for i in range(0,100):
-		res = es.get(index = 'tweet', doc_type = 'tweet', id = i)
+	for i in range(0,42):
+		res = es.get(index = 'tweets', doc_type = 'tweet', id = i)
 		if (len(re.findall(term, res['_source']['tweet'])) > 0):
 				n += 1
 				
@@ -73,7 +78,7 @@ def find_number_of_docs(term):
 				
 	
 
-#@app.route("/", methods['GET', 'POST'])
+@app.route("/", methods['GET', 'POST'])
 def main():
 
 
@@ -89,28 +94,31 @@ def main():
 		AVG = find_average_tweet_length()
 		
 		n = 0	
-		for i in range(0,100):
+		for i in range(0,42):
 		
 				
-			res = es.get(index = 'tweets', doc_type = 'tweet', id = i)	
+			res = es.get(index = 'tweets', doc_type = 'tweet', id = i)
+			print(res['_source'])
+			print(res['_source']['tweet'])	
 			K = (1.2 * (0.25))
 			K += (0.75) * ((len(res['_source']['tweet']))/AVG)
 			 	
 				
+			print(K)	
 				
-				
-			
+						
 			score = 0
 			for j in range(0, len(terms)):
 				
-				f = re.findall(terms[i], res['_source']['tweet'])
-				n = find_number_of_docs(terms[i])
-				score += BM25(n,K,len(f))
+				f = re.findall(terms[j], res['_source']['tweet'])
+				n = find_number_of_docs(terms[j])
+				score += functions.BM25(n,K,len(f))
 			
 			t = (res['_source'], score)
-			tweets_and_source.append(t)
+			print(t)
+			tweets_and_scores.append(t)
 
-
+			
 
 	return 0 	#return render_template('index.html')
 
@@ -127,7 +135,7 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+	app.run()
 
 
 
