@@ -79,11 +79,11 @@ def main():
 
 	tweets_and_scores = []
 		
-	if request.method == 'POST':
+	if 2 == 2:	# if request.method == 'POST'
 
 
-		query = request.form.get('query',-1)
-
+		#query = request.form.get('query',-1)
+		query = "girlfriend offered"
 		terms = query.split()
 
 		AVG = find_average_tweet_length()
@@ -112,7 +112,7 @@ def main():
 
 
 
-	return render_template('index.html')
+	return 0 	#return render_template('index.html')
 
 
 
@@ -126,8 +126,8 @@ def main():
 
 
 
-#if __name__ == "__main__":
-#	main()
+if __name__ == "__main__":
+	main()
 
 
 
