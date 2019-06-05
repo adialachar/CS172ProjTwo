@@ -11,6 +11,7 @@ import urllib
 from urllib.request import urlopen
 import requests
 import sys
+import datetime
 credentials = {}
 credentials['CONSUMER_KEY'] = 'vJsGsCMmiZapsIoEpYVahW76L'
 credentials['CONSUMER_SECRET'] = 'SVHB6pHLVZPOoppBYywcsXlRkxDGBzdLufDwoingipDoEH66lX'
@@ -49,7 +50,7 @@ class listener(StreamListener):
                 #print(status.entities['urls'][0]['expanded_url'])
                 link = status.entities['urls'][0]['expanded_url']
          
-            dict = {'screen_name': status.user.screen_name, 'tweet': status.text, 'Location': status.user.location, 'Link': link}
+            dict = {'screen_name': status.user.screen_name, 'tweet': status.text, 'Location': status.user.location, 'Link': link, 'Date': (status.created_at).strftime('%m/%d/%Y'),'Time': (status.created_at).strftime('%H:%M:%S')}
         
 
         
