@@ -79,13 +79,13 @@ def find_number_of_docs(term):
 				
 	
 
-@app.route("/", methods['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def main():
 
 
 	tweets_and_scores = []
-		
-	if request.method == 'POST'
+	time_sorter = []
+	if request.method == 'POST':
 
 
 		query = request.form.get('query',-1)
@@ -116,10 +116,75 @@ def main():
 				score += functions.BM25(n,K,len(f))
 			
 			t = (res['_source'], score)
-			print(t)
+			#print(t)
 			tweets_and_scores.append(t)
 
+
+		tweets_and_scores = sorted(tweets_and_scores, key=lambda tweets_and_scores: tweets_and_scores[1])
+		tweets_and_scores = tweets_and_scores[-10:]
+		#tweets_and_scores = sorted(tweets_and_scores, key=lambda tweets_and_scores: tweets_and_scores[0]['Time'])
+		#print(tweets_and_scores[1][0]['Time'])	
+		no_time_list = []
+		for i in range(0,10):
+			#t = (tweets_and_scores[i][0]['Time'],i)
+			#print(tweets_and_scores[i][0])
 			
+			if 'Time' in tweets_and_scores[i][0].keys():
+
+				t = (tweets_and_scores[i][0]['Time'],i)
+	
+
+
+				time_sorter.append(t)
+
+			else:
+				no_time_list.append(i)
+
+
+			
+
+
+
+		time_sorter = sorted(time_sorter, key=lambda time_sorter: time_sorter[0])
+		#print(time_sorter)
+		#time_sorter.reverse()
+		#print(time_sorter)	
+		sorted_tweets = []
+		for i in range(0, len(time_sorter)):
+
+			sorted_tweets.append(tweets_and_scores[i])
+
+
+		#sorted_tweets.extend(no_time_list)
+
+
+		for i in range(0, len(no_time_list)):
+			sorted_tweets.append(tweets_and_scores[i])
+
+
+		#print(sorted_tweets)
+
+		just_tweets = []
+		for i in range(0,len(sorted_tweets)):
+		
+			#just_tweets.append(sorted_tweets[i][0]['tweet'])
+			#print(sorted_tweets[i])
+			#print(type(sorted_tweets[i]))
+
+			if type(sorted_tweets[i] == tuple):
+				just_tweets.append(sorted_tweets[i][0]['tweet'])
+			#elif type(sorted_tweets[i] == dict):
+			#	just_tweets.append(sorted_tweets[i]['tweet'])
+
+
+
+			
+		return render_template('index.html', just_tweets = just_tweets)		
+
+
+
+
+
 
 	return render_template('index.html')
 

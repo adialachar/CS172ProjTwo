@@ -1,1 +1,26 @@
-<!DOCTYPE html><html><h1>Hey </h1> <form action = "" method = post>InputData:<br><input type = "text" name = userinput><br><br><input type = "submit" value = submit></form></html>
+<!DOCTYPE html>
+	<html>
+		<h1>Hey </h1> 
+
+		<form action = "" method = post>
+			InputData:<br>
+		<input type = "text" name = "query"><br><br>
+		<input type = "submit" value = submit></form>
+
+
+		{% if just_tweets is not none %}
+
+			{%for tweet in just_tweets %}
+
+				<li>{{loop.index}} {{tweet}}</li>
+			{% endfor %}
+		{% endif %}
+
+
+
+
+	</html>
+
+
+
+	
