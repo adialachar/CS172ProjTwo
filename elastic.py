@@ -212,16 +212,17 @@ def map():
 
 
 
-	coordinate_pairs = []
-	gmaps = googlemaps.Client(key=key)
+    coordinate_pairs = []
+    gmaps = googlemaps.Client(key=key)
     #geocode = gmaps.geocode('Miami,FL')
     current_location = (33.97305556, -117.3280555633) #Hardcode for UCR if browser location unavailable
     for i in range(0, len(locations)):
-    	geocode = gmaps.geocode(locations[i])
-		coords = geocode[0]['geometry']['location']
-		#1.4450867052 is approximately 100 miles in latitude and longitude. This is a rough estimate. We found that this approach was much faster than using the google maps library to calculate the distance between two coordinates
-       	if (abs(current_location[0] - coords['lat']) > 1.4450867052 or abs(current_location[1] - coords['lng']) > 1.4450867052):
-			coordinate_pairs.append((coords['lat'], coords['lng']))
+        geocode = gmaps.geocode(locations[i])
+        coords = geocode[0]['geometry']['location']
+        #1.4450867052 is approximately 100 miles in latitude and longitude. This is a rough estimate. We found that this approach was much faster than using the google maps library to calculate the distance between two coordinates
+        if (len(coords) is not 0):
+            if (abs(current_location[0] - coords['lat']) > 1.4450867052 or abs(current_location[1] - coords['lng']) > 1.4450867052):
+	        coordinate_pairs.append((coords['lat'], coords['lng']))
 
 
 	
