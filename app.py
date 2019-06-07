@@ -1,17 +1,17 @@
 from flask import Flask, render_template, request
-from elasticsearch import Elasticsearch
+#from elasticsearch import Elasticsearch
 
 
 app = Flask(__name__)
-es = Elasticsearch()
+#es = Elasticsearch()
 
 
 
-@app.route("/", methods = ['GET','POST'])
+@app.route("/map", methods = ['GET','POST'])
 def main():
 
 	
-	return render_template('index.html')
+    return render_template('newmapTwo.html')
 
 
 if __name__ == "__main__":

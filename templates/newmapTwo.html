@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		 
+		    <title>Maps</title>
+		        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key="></script>
+			    <script type="text/javascript">
+				            var locations = [
+						                ['Location 1', 34.0522342, -118.2436849, 1],
+						                ['Location 2', 33.9898188, -117.7325848, 2],
+						                ['Location 3', 34.1477849, -118.1445155, 3],
+						            ];
+ 
+        function InitMap() {
+		 
+		            var map = new google.maps.Map(document.getElementById('map'), {
+				                    zoom:4,
+				                    center: new google.maps.LatLng(33.97305556, -117.3280555633),
+				                    mapTypeId: google.maps.MapTypeId.ROADMAP
+				                });
+		 
+		            var infowindow = new google.maps.InfoWindow();
+		 
+		            var marker, i;
+		 
+		            for (i = 0; i < locations.length; i++) {
+				                    marker = new google.maps.Marker({
+							                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+							                        map: map
+							                    });
+				     
+				                     google.maps.event.addListener(marker, 'click', (function (marker, i) {
+							                        return function () {
+											                        infowindow.setContent(locations[i][0]);
+											                        infowindow.open(map, marker);
+											                    }
+							                    })(marker, i));
+				                }
+		        }
+    </script>
+	</head>
+	<body onload="InitMap();">
+		    <h1>Tweets within 100 miles</h1>
+		        <div id="map" style="height: 500px; width: auto;">
+				    </div>
+	</body>
+</html>
